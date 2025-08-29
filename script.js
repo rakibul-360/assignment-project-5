@@ -1,179 +1,85 @@
-function getElement(id) {
-  const element = document.getElementById(id);
-  return element;
+
+function getElement(id){
+    return document.getElementById(id);
 }
 
-document.getElementById("btn-1").addEventListener("click", function () {
-  const title = getElement("title-1").innerText;
-  const number = getElement("number-1").innerText;
+const histryContainer = getElement("histry-container");
 
-  const histryContainer = getElement("histry-container");
-  const newHistry = document.createElement("div");
+// coins first 
 
-  newHistry.innerHTML = `
+let coin = 100;
+const coinBalance = getElement("coin-balance");
+coinBalance.innerText = coin;
 
-<div class="histry mt-5 bg-gray-100 mx-1 rounded-md py-2 px-4">
-          <h1 class="text-2xl font-semibold">${title}</h1>
-          <h1 class="text-2xl text-gray-400">${number}</h1>
-         </div>
+// coins end 
 
+function getCurrentTime() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+}
 
-`;
-  histryContainer.appendChild(newHistry);
+document.querySelectorAll(".call-btn").forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+        const title = getElement(`title-${index + 1}`).innerText;
+        const number = getElement(`number-${index + 1}`).innerText;
+
+        // coin check 
+        if(coin <= 0){
+            alert("❌ No coins left! Please recharge.");
+            return;
+        }
+        coin -= 10;
+        coinBalance.innerText = coin;
+        //coin check
+        
+        alert(`📞 Calling ${title} - ${number}`);
+
+        const newHistry = document.createElement("div");
+        newHistry.className = "histry mt-5 bg-gray-100 mx-1 rounded-md py-2 px-4";
+        newHistry.innerHTML = `
+        
+        <h1 class="text-1xl font-semibold">${title}</h1>
+        <h1 class="text-1xl text-gray-400">${number}</h1>
+         <h2 class="text-xs text-gray-500 mt-1">Call Time: ${getCurrentTime()}</h2>
+
+        `;
+
+        histryContainer.appendChild(newHistry);
+
+    });
 });
-document.getElementById("btn-2").addEventListener("click", function () {
-  const title = getElement("title-2").innerText;
-  const number = getElement("number-2").innerText;
 
-  const histryContainer = getElement("histry-container");
-  const newHistry = document.createElement("div");
+// clear history functionality 
+const clearButton = getElement("clear-btn");
+clearButton.addEventListener("click", () =>{
+    histryContainer.innerHTML = "";
 
-  newHistry.innerHTML = `
-
-<div class="histry mt-5 bg-gray-100 mx-1 rounded-md py-2 px-4">
-          <h1 class="text-2xl font-semibold">${title}</h1>
-          <h1 class="text-2xl text-gray-400">${number}</h1>
-         </div>
-
-
-`;
-  histryContainer.appendChild(newHistry);
 });
-document.getElementById("btn-3").addEventListener("click", function () {
-  const title = getElement("title-3").innerText;
-  const number = getElement("number-3").innerText;
 
-  const histryContainer = getElement("histry-container");
-  const newHistry = document.createElement("div");
+let heartCount = 0;
+const heartCountElement = getElement("heart-count");
 
-  newHistry.innerHTML = `
-
-<div class="histry mt-5 bg-gray-100 mx-1 rounded-md py-2 px-4">
-          <h1 class="text-2xl font-semibold">${title}</h1>
-          <h1 class="text-2xl text-gray-400">${number}</h1>
-         </div>
-
-
-`;
-  histryContainer.appendChild(newHistry);
+document.querySelectorAll(".heart-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        heartCount++;
+        heartCountElement.innerText = heartCount;
+    });
 });
-//  4 start
-document.getElementById("btn-4").addEventListener("click", function () {
-  const title = getElement("title-4").innerText;
-  const number = getElement("number-4").innerText;
+// heart count end 
 
-  const histryContainer = getElement("histry-container");
-  const newHistry = document.createElement("div");
-
-  newHistry.innerHTML = `
-
-<div class="histry mt-5 bg-gray-100 mx-1 rounded-md py-2 px-4">
-          <h1 class="text-2xl font-semibold">${title}</h1>
-          <h1 class="text-2xl text-gray-400">${number}</h1>
-         </div>
-
-
-`;
-  histryContainer.appendChild(newHistry);
+// copy click start
+let copyCount = 0;
+const copyCountElement = getElement("copy-count");
+document.querySelectorAll(".copy-btn").forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+        const number = getElement(`number-${index+1}`).innerText;
+        navigator.clipboard.writeText(number).then(() => {
+            alert(`Copied: ${number}`);
+            copyCount++;
+            copyCountElement.innerText = copyCount;
+        });
+    });
 });
-// 4 end
-//  5 start
-document.getElementById("btn-5").addEventListener("click", function () {
-  const title = getElement("title-5").innerText;
-  const number = getElement("number-5").innerText;
-
-  const histryContainer = getElement("histry-container");
-  const newHistry = document.createElement("div");
-
-  newHistry.innerHTML = `
-
-<div class="histry mt-5 bg-gray-100 mx-1 rounded-md py-2 px-4">
-          <h1 class="text-2xl font-semibold">${title}</h1>
-          <h1 class="text-2xl text-gray-400">${number}</h1>
-         </div>
-
-
-`;
-  histryContainer.appendChild(newHistry);
-});
-// 5 end
-//  6 start
-document.getElementById("btn-6").addEventListener("click", function () {
-  const title = getElement("title-6").innerText;
-  const number = getElement("number-6").innerText;
-
-  const histryContainer = getElement("histry-container");
-  const newHistry = document.createElement("div");
-
-  newHistry.innerHTML = `
-
-<div class="histry mt-5 bg-gray-100 mx-1 rounded-md py-2 px-4">
-          <h1 class="text-2xl font-semibold">${title}</h1>
-          <h1 class="text-2xl text-gray-400">${number}</h1>
-         </div>
-
-
-`;
-  histryContainer.appendChild(newHistry);
-});
-// 6 end
-//  7 start
-document.getElementById("btn-7").addEventListener("click", function () {
-  const title = getElement("title-7").innerText;
-  const number = getElement("number-7").innerText;
-
-  const histryContainer = getElement("histry-container");
-  const newHistry = document.createElement("div");
-
-  newHistry.innerHTML = `
-
-<div class="histry mt-5 bg-gray-100 mx-1 rounded-md py-2 px-4">
-          <h1 class="text-2xl font-semibold">${title}</h1>
-          <h1 class="text-2xl text-gray-400">${number}</h1>
-         </div>
-
-
-`;
-  histryContainer.appendChild(newHistry);
-});
-// 7 end
-//  8 start
-document.getElementById("btn-8").addEventListener("click", function () {
-  const title = getElement("title-8").innerText;
-  const number = getElement("number-8").innerText;
-
-  const histryContainer = getElement("histry-container");
-  const newHistry = document.createElement("div");
-
-  newHistry.innerHTML = `
-
-<div class="histry mt-5 bg-gray-100 mx-1 rounded-md py-2 px-4">
-          <h1 class="text-2xl font-semibold">${title}</h1>
-          <h1 class="text-2xl text-gray-400">${number}</h1>
-         </div>
-
-
-`;
-  histryContainer.appendChild(newHistry);
-});
-// 8 end
-//  9 start
-document.getElementById("btn-9").addEventListener("click", function () {
-  const title = getElement("title-9").innerText;
-  const number = getElement("number-9").innerText;
-
-  const histryContainer = getElement("histry-container");
-  const newHistry = document.createElement("div");
-
-  newHistry.innerHTML = `
-
-<div class="histry mt-5 bg-gray-100 mx-1 rounded-md py-2 px-4">
-          <h1 class="text-2xl font-semibold">${title}</h1>
-          <h1 class="text-2xl text-gray-400">${number}</h1>
-         </div>
-
-
-`;
-  histryContainer.appendChild(newHistry);
-});
-// 9 end
